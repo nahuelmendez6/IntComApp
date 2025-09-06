@@ -13,6 +13,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.app.integracioncomunitariaapp.ui.petition.PetitionScreen
 import com.app.integracioncomunitariaapp.ui.postulation.PostulationScreen
+import com.app.integracioncomunitariaapp.ui.postulation.PostulationsListScreen
 import com.app.integracioncomunitariaapp.ui.theme.IntegracionComunitariaAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -31,6 +32,10 @@ class MainActivity : ComponentActivity() {
                         composable("postulation/{petitionId}") { backStackEntry ->
                             val petitionId = backStackEntry.arguments?.getString("petitionId")
                             PostulationScreen(petitionId = petitionId ?: "")
+                        }
+                        composable("postulationsList/{petitionId}") { backStackEntry ->
+                            val petitionId = backStackEntry.arguments?.getString("petitionId")
+                            PostulationsListScreen(petitionId = petitionId ?: "")
                         }
                     }
                 }

@@ -80,8 +80,13 @@ fun PetitionItem(petition: Petition, navController: NavController) {
             Text(text = "From: ${formatDate(petition.dateSince)}", style = MaterialTheme.typography.bodySmall)
             Text(text = "To: ${formatDate(petition.dateUntil)}", style = MaterialTheme.typography.bodySmall)
             Spacer(modifier = Modifier.height(8.dp))
-            Button(onClick = { navController.navigate("postulation/${petition.idPetition}") }) {
-                Text("Postularse")
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
+                Button(onClick = { navController.navigate("postulation/${petition.idPetition}") }) {
+                    Text("Postularse")
+                }
+                Button(onClick = { navController.navigate("postulationsList/${petition.idPetition}") }) {
+                    Text("Ver Postulaciones")
+                }
             }
         }
     }
