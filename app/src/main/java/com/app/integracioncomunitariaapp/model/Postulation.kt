@@ -1,12 +1,19 @@
 package com.app.integracioncomunitariaapp.model
 
 import com.google.gson.annotations.SerializedName
+import java.util.Date
 
 data class Postulation(
-    @SerializedName("id") val id: Long,
-    @SerializedName("idPetition") val idPetition: Long,
-    @SerializedName("idProvider") val idProvider: Long,
-    @SerializedName("winner") val winner: String?,
-    @SerializedName("idState") val idState: Long,
-    @SerializedName("current") val current: String?
+    @SerializedName("idPostulation")
+    val idPostulation: Long,
+    @SerializedName("idPetition")
+    val idPetition: Long,
+    @SerializedName("idUser")
+    val idUser: Long,
+    @SerializedName("content")
+    val content: String,
+    @SerializedName("date")
+    val date: Date,
+    @SerializedName("idState")
+    val idState: Long
 )

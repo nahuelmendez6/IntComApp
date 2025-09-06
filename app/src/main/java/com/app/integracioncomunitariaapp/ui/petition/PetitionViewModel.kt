@@ -8,9 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class PetitionViewModel : ViewModel() {
-
-    private val repository = PetitionRepository()
+class PetitionViewModel(private val repository: PetitionRepository) : ViewModel() {
 
     private val _petitions = MutableStateFlow<List<Petition>>(emptyList())
     val petitions: StateFlow<List<Petition>> = _petitions

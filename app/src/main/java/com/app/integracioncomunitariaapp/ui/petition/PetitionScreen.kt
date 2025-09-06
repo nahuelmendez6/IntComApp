@@ -14,13 +14,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.app.integracioncomunitariaapp.model.Petition
+import com.app.integracioncomunitariaapp.network.RetrofitClient
+import com.app.integracioncomunitariaapp.repository.PetitionRepository
+import com.app.integracioncomunitariaapp.repository.PostulationRepository
+import com.app.integracioncomunitariaapp.ui.viewmodel.ViewModelFactory
 import java.text.SimpleDateFormat
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PetitionScreen(viewModel: PetitionViewModel = viewModel()) {
+fun PetitionScreen(navController: NavController, viewModel: PetitionViewModel = viewModel(factory = ViewModelFactory(PetitionRepository(RetrofitClient.instance), PostulationRepository(RetrofitClient.instance)))) {
     val petitions by viewModel.petitions.collectAsState()
     val error by viewModel.error.collectAsState()
 
@@ -55,7 +60,7 @@ fun PetitionScreen(viewModel: PetitionViewModel = viewModel()) {
                     contentPadding = PaddingValues(16.dp)
                 ) {
                     items(petitions) { petition ->
-                        PetitionItem(petition = petition)
+                        PetitionItem(petition = petition, navController = navController)
                         Spacer(modifier = Modifier.height(8.dp))
                     }
                 }
@@ -65,7 +70,7 @@ fun PetitionScreen(viewModel: PetitionViewModel = viewModel()) {
 }
 
 @Composable
-fun PetitionItem(petition: Petition) {
+fun PetitionItem(petition: Petition, navController: NavController) {
     Card(
         modifier = Modifier.fillMaxWidth(),
     ) {
@@ -74,6 +79,10 @@ fun PetitionItem(petition: Petition) {
             Spacer(modifier = Modifier.height(8.dp))
             Text(text = "From: ${formatDate(petition.dateSince)}", style = MaterialTheme.typography.bodySmall)
             Text(text = "To: ${formatDate(petition.dateUntil)}", style = MaterialTheme.typography.bodySmall)
+            Spacer(modifier = Modifier.height(8.dp))
+            Button(onClick = { navController.navigate("postulation/${petition.idPetition}") }) {
+                Text("Postularse")
+            }
         }
     }
 }
