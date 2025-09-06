@@ -5,15 +5,19 @@ import java.util.Date
 
 data class Postulation(
     @SerializedName("idPostulation")
-    val idPostulation: Long,
-    @SerializedName("idPetition")
-    val idPetition: Long,
+    val idPostulation: Long?,
+    @SerializedName("petition")
+    val petition: Petition,
     @SerializedName("idUser")
     val idUser: Long,
-    @SerializedName("content")
-    val content: String,
+    @SerializedName("proposal")
+    val proposal: String,
     @SerializedName("date")
     val date: Date,
     @SerializedName("idState")
-    val idState: Long
+    val idState: Long,
+    @SerializedName("cost")
+    val cost: Double,
+    @SerializedName("winner")
+    val winner: Int
 )

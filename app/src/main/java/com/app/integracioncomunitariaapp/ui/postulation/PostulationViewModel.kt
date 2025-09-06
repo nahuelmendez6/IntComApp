@@ -2,6 +2,7 @@ package com.app.integracioncomunitariaapp.ui.postulation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.app.integracioncomunitariaapp.model.Petition
 import com.app.integracioncomunitariaapp.model.Postulation
 import com.app.integracioncomunitariaapp.repository.PostulationRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,18 +15,31 @@ class PostulationViewModel(private val repository: PostulationRepository) : View
     private val _uiState = MutableStateFlow<PostulationUiState>(PostulationUiState.Idle)
     val uiState: StateFlow<PostulationUiState> = _uiState
 
-    fun createPostulation(petitionId: Long, content: String) {
+    fun createPostulation(petitionId: Long, proposal: String, cost: Double) {
         viewModelScope.launch {
             _uiState.value = PostulationUiState.Loading
             try {
                 // TODO: Get the real user ID
-                val postulation = Postulation(
-                    idPostulation = 0,
+                val petition = Petition(
                     idPetition = petitionId,
+                    idTypePetition = 0,
+                    description = "",
+                    dateSince = Date(),
+                    dateUntil = Date(),
+                    idUserCreate = 0,
+                    idUserUpdate = 0,
+                    idCustomer = 0,
+                    idState = 0
+                )
+                val postulation = Postulation(
+                    idPostulation = null,
+                    petition = petition,
                     idUser = 1, // Hardcoded user ID
-                    content = content,
+                    proposal = proposal,
                     date = Date(),
-                    idState = 1 // Hardcoded state ID
+                    idState = 1, // Hardcoded state ID
+                    cost = cost,
+                    winner = 0
                 )
                 val createdPostulation = repository.createPostulation(postulation)
                 _uiState.value = PostulationUiState.Success(createdPostulation)

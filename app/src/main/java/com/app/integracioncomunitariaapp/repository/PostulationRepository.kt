@@ -8,4 +8,8 @@ class PostulationRepository(private val apiService: ApiService) {
     suspend fun createPostulation(postulation: Postulation): Postulation {
         return apiService.createPostulation(postulation)
     }
+
+    suspend fun getPostulationsByPetition(idPetition: Long): List<Postulation> {
+        return apiService.getPostulationsByPetition(idPetition)
+    }
 }
